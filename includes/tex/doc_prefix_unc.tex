@@ -33,35 +33,46 @@
 % @todo: Find a more elegant way of achieving this
 
 % Establish original spacings
-
+% 
 \newlength{\oldbaselineskip}
 \setlength{\oldbaselineskip}{\the\baselineskip}
 \newlength{\oldparskip}
 \setlength{\oldparskip}{\the\parskip}
 
 
-\newpage
+%\newpage
 
-% Set spacings for these sections
+%Set spacings for these sections
 \setlength{\baselineskip}{0.5\oldbaselineskip}
 \setlength{\parskip}{0.5\oldbaselineskip}
 
 
+% Create a ``Table of Contents''
+
 \tableofcontents
-
 \newpage
 
+
+% Create a ``List of Figures''
+
+% NOTE: got this idea from https://github.com/rosannav/thesis_in_rmarkdown/tree/master/example_thesis
 \listoffigures
+%\addcontentsline{toc}{section}{List of Figures}
 
 \newpage
 
+% Create a ``List of Tables''
 \listoftables
+\addcontentsline{toc}{section}{List of Tables}
+
 
 
 % Restore original spacings
 \setlength{\baselineskip}{1.0\oldbaselineskip}
 \setlength{\parskip}{1.0\oldparskip}
 
+\fancyhead[CO,CE]{List of Figures}
+\addcontentsline{toc}{section}{List of Abbreviations}
 \listofabbreviations
 
 \mainmatter
