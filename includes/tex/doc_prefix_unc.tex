@@ -1,0 +1,67 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% DOCUMENT SETTINGS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Dissertation Title}
+\author{Dissertation Author}
+\committee{Advisor}{Committee Member}{Committee Member}{Committee Member}{Committee Member}
+\date{January 1, 1970}
+
+\abstract{this is good stuff}
+
+\dedication{To someone}
+
+\pagestyle{plain}
+
+\frontmatter{}
+
+
+\maketitlepg
+\makecopyrightpg
+\makeabstractpg
+\makededicationpg
+
+\chapter*{Acknowledgements}
+\input{./sections/0_acknowledgements.tex}
+
+
+% The graduate school requires that entries are double spaced.
+% They also require that multiple lines in a single entry are single spaced.
+% This achieves that by setting \baselineskip (the space between lines)
+% and \parskip (the additional space between paragraphs) directly, then restoring them
+%
+% @todo: Find a more elegant way of achieving this
+
+% Establish original spacings
+
+\newlength{\oldbaselineskip}
+\setlength{\oldbaselineskip}{\the\baselineskip}
+\newlength{\oldparskip}
+\setlength{\oldparskip}{\the\parskip}
+
+
+\newpage
+
+% Set spacings for these sections
+\setlength{\baselineskip}{0.5\oldbaselineskip}
+\setlength{\parskip}{0.5\oldbaselineskip}
+
+
+\tableofcontents
+
+\newpage
+
+\listoffigures
+
+\newpage
+
+\listoftables
+
+
+% Restore original spacings
+\setlength{\baselineskip}{1.0\oldbaselineskip}
+\setlength{\parskip}{1.0\oldparskip}
+
+\listofabbreviations
+
+\mainmatter

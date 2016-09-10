@@ -1,0 +1,52 @@
+
+%Font packages
+\usepackage[T1]{fontenc}
+%\usepackage[latin1]{inputenc}
+
+
+% List of acronyms
+\usepackage{longtable}
+\usepackage[acronym]{glossaries}
+
+\usepackage{tocloft}
+\usepackage{lscape}
+\usepackage{tipa}
+
+\usepackage{kvoptions}
+\usepackage{setspace}
+\usepackage{varwidth}
+\usepackage{microtype}
+
+
+
+%% Math Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{bbm}
+\usepackage{amssymb}
+\usepackage{geometry}
+
+%% Reduce spacing between paragraph and section title %%%%%%%
+%% @todo: Put this modification in the class file itself.
+\usepackage{titlesec}
+\titlespacing*{\section}
+{0pt}{-5pt}{0pt}
+\titlespacing*{\subsection}
+{0pt}{-5pt}{0pt}
+\usepackage{indentfirst}   %Indents first paragraphs in every section.
+
+%% Flush footnotes to the left
+\usepackage[hang,flushmargin]{footmisc}
+%% Places footnotes immediately below horizontal rule
+\setlength{\footnotesep}{0pt}
+
+%% Normal LaTeX or pdfLaTeX? %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{ifpdf}
+
+% %% Packages for Graphics & Figures %%%%%%%%%%%%%%%%%%%%%%%%%%
+% \ifpdf %%Inclusion of graphics via \includegraphics{file}
+% 	\usepackage[pdftex]{graphicx} %%graphics in pdfLaTeX
+% \else
+% 	\usepackage[dvips]{graphicx} %%graphics and normal LaTeX
+% \fi
