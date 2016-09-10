@@ -1118,8 +1118,8 @@
 
 \renewcommand{\tableofcontents}{
 
-\addtolength{\headsep}{0.5in}		% These adjust things for the running
-\addtolength{\textheight}{-0.5in}	% headers for TOC, LOF, LOT.
+%\addtolength{\headsep}{0.5in}		% These adjust things for the running
+%\addtolength{\textheight}{-0.5in}	% headers for TOC, LOF, LOT.
 
 % This bracket begins an unnmaed environment in which we will temporarily
 % override the document's page style and margins
