@@ -422,7 +422,7 @@
   \disstype{thesis}
   \dissdegree{Master of Science}
 \fi
-\dissdept{Department of xxx in the xxx}
+\dissdept{Department of Mathematics in the College of Arts and Sciences}
 
 %The blurb on the title page will be automatically constructed from the above information. If you need to change it, you can redefine this variable.
 \DeclareAuthorVariable*{dissblurb}
@@ -475,6 +475,8 @@
 \crblurb{\textls*[25]{ALL RIGHTS RESERVED}}
 
 
+
+
 %%% This is used to make the abstract page. The command \abstract (like \title and \author) MUST be called by the user before calling \maketitle. %%%
 
 %The abstract text (mandatory).
@@ -513,7 +515,7 @@
 \DeclareAuthorVariable*{absname}
 \absname{Abstract}
 \DeclareAuthorVariable*{tocname}
-\tocname{{\hfill Contents\hfill}  } 
+\tocname{Table of Contents} 
 \DeclareAuthorVariable*{lofname}
 \lofname{LIST OF FIGURES} 
 \DeclareAuthorVariable*{lotname}
@@ -522,7 +524,31 @@
 \loaname{LIST OF ABBREVIATIONS} 
 \DeclareAuthorVariable*{bblname}
 \bblname{REFERENCES} 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -610,52 +636,7 @@
   \clearpage
 }
 
-%%% ------------------------------------------------------------%%%
-%% NOTE (AVH): I changed these out of functions. for some reason the functions do not work when paired with .Rmd files ------------------------------------%%%%
 
-%This function actually makes the title page.
-\newcommand{\maketitlepg}{%
-%Be careful about extra returns (put % signs at the end of lines). They can throw off the spacing.
-  \thispagestyle{empty}%
-  %Single space it here.
-  \singlespacing%
-  \begin{center}%
-    %Add the extra space at the top.
-    \my@titlepageextra%
-    
-    %actually display the title
-    \my@displaymaintitle \par%
-    
-    \vspace{1in}
-    %display the author
-    \@author \par
-    \vspace{1in}%
-    
-    %The blurb
-    \my@dissblurb \par
-    \vspace{1in}%
-    
-    %location and year
-    \my@dissloc \par
-    \my@dissyear \par
-    \vspace{1in}%
-    
-  \end{center}
-  %back to double spacing
-  \doublespacing
-  %List the advisor, followed by the committee members.
-  %This varwidth box is as wide as the longest name inside it. The names align left inside the box, but the box itself goes as far right as it can because of the \hfill above.
-  \hspace{4.666in}
-  \begin{varwidth}{\textwidth} 
-	  \my@approvedby \par
-	  \my@advisor \par
-	  \my@readerA \par
-	  \my@readerB \par
-	  \my@readerC \par
-	  \my@readerD
-  \end{varwidth}
-  \clearpage
-}
 
 
 %This function makes the copyright page.
@@ -681,28 +662,6 @@
 }
 
 
-
-%This function makes the copyright page.
-\newcommand{\makecopyrightpg}{
-	\begin{center}
-	  %single spacing again
-	  \singlespacing
-	  %provide the top extra space
-	  \my@crtopextra
-	  %copyright year
-	  \copyright{} \my@cryear \par
-	  
-	  %copyright name
-	  \my@crauthor \par
-	  
-	  %copyright blurb
-	  \my@crblurb \par
-	  
-    %provide the bottom extra space 	  
-	  \my@crbottomextra
-  \end{center}
-  \clearpage
-}
 
 
 
@@ -739,35 +698,6 @@
 
 
 
-%This function makes the abstract page.
-\newcommand{\makeabstractpg}{
-	\begin{center}
-	  %add extra space at top.
-	  \my@frontextra
-    %display the title
-	  \my@displaytitle{\my@absname}
-	  
-	  %put the blurb in a box because it looks weird when the title is really long. Note that the apparent stupidity of the two nested center environments is due to the fact the box also needs to be centered, not just its contents within the box. The width of the box is controlled by setting \abstractblurbwidth.
-	  \begin{minipage}{\my@abstractblurbwidth\textwidth}
-	    \begin{center}
-		    %single spacing for the blurb
-		    \singlespacing
-		    \my@abstractblurb
-	    \end{center}
-	  \end{minipage}
-	\end{center}
-    
-  %double spacing for the text of the abstract
-  \doublespacing
-  
-  %skip a line
-  \vspace{\baselineskip}
-  
-  %display the abstract
-  \my@abstract
-  \clearpage
-}
-
 
 
 
@@ -793,42 +723,6 @@
 
 
 
-
-
-%This function makes the dedication page.
-\newcommand{\makededicationpg}{
-	\begin{center}
-	  %add extra space at top.
-	  \my@frontextra
-	  %put it in a box
-	  \begin{minipage}{\my@dedicationwidth\textwidth}
-	    \begin{center}
-		    %single spacing 
-		    \singlespacing
-		    %display the dedication
-		    \my@dedication
-	    \end{center}
-	  \end{minipage}
-	\end{center}
-	\clearpage
-}
-
-
-
-%%------------------INCLUDE REFERENCES (from https://github.com/jvcasill/ua_thesis_rmd)-------------------------%%
-% This is is used to include the reference section after the 
-% appendix. There is a .Rmd file associated with it.
-
-\newcommand{\increferences}[1]{
-
-\chapter*{}
-\addcontentsline{toc}{chapter}{REFERENCES}
-
-\InputIfFileExists{#1}
-  {\typeout{Including your file #1.tex for the references.}}
-  {Couldn't find file.}
-
-}
 
 
 
@@ -958,7 +852,7 @@
       \@mkboth{\MakeUppercase\listfigurename}%
               {\MakeUppercase\listfigurename}%
     \@starttoc{lof}%
-
+    
     \if@restonecol\twocolumn\fi
     \my@isalistfalse
     }
@@ -1068,36 +962,7 @@
 
 
 
-\renewcommand\listoffigures{%
-    \if@twocolumn
-      \@restonecoltrue\onecolumn
-    \else
-      \@restonecolfalse
-    \fi
-    \chapter*{\listfigurename}%
-      \@mkboth{\MakeUppercase\listfigurename}%
-              {\MakeUppercase\listfigurename}%
-    \@starttoc{lof}%
-    \if@restonecol\twocolumn\fi
-    }
-\renewcommand*\l@figure{\@dottedtocline{1}{1.5em}{2.3em}}
-\renewcommand\listoftables{%
-    \if@twocolumn
-      \@restonecoltrue\onecolumn
-    \else
-      \@restonecolfalse
-    \fi
-    \chapter*{\listtablename}%
-      \@mkboth{%
-          \MakeUppercase\listtablename}%
-         {\MakeUppercase\listtablename}%
-    \@starttoc{lot}%
-    \if@restonecol\twocolumn\fi
-    }
 
-\renewcommand\contentsname{Contents}
-\renewcommand\listfigurename{List of Figures}
-\renewcommand\listtablename{List of Tables}
 
 
 
@@ -1128,7 +993,7 @@
   \fi
   \chapter*{\contentsname
       \@mkboth{%
-         \contentsname}{\contentsname}}%
+         \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
   \@starttoc{toc}%
   \if@restonecol\twocolumn\fi%
   \my@isthereatoctrue%
@@ -1173,7 +1038,7 @@
                          \refstepcounter{chapter}%
                          \typeout{\@chapapp\space\thechapter.}%
                          \ifmy@isthereatoc
-                           \addcontentsline{toc}{chapter}{{\@chapapp{ }\protect\numberline{\thechapter:}#1}}%
+                           \addcontentsline{toc}{chapter}{\MakeUppercase{\@chapapp{ }\protect\numberline{\thechapter:}#1}}%
                          \fi
                     \else
                       \ifmy@isthereatoc
@@ -1192,7 +1057,11 @@
 
 
 
-%% ----------------------- end of unc math dept toc ------------------------
+
+
+
+
+
 
 
 
@@ -1243,57 +1112,5 @@
 
 
 
-
-
-
-
-
-
-%-----------------------------------------------HYPHENATION-------------------------------------------------
-
-%Show LaTeX how to hyphenate certain words. (Copied from amsbook.)
-\hyphenation{acad-e-my acad-e-mies af-ter-thought anom-aly anom-alies
-an-ti-deriv-a-tive an-tin-o-my an-tin-o-mies apoth-e-o-ses
-apoth-e-o-sis ap-pen-dix ar-che-typ-al as-sign-a-ble as-sist-ant-ship
-as-ymp-tot-ic asyn-chro-nous at-trib-uted at-trib-ut-able bank-rupt
-bank-rupt-cy bi-dif-fer-en-tial blue-print busier busiest
-cat-a-stroph-ic cat-a-stroph-i-cally con-gress cross-hatched data-base
-de-fin-i-tive de-riv-a-tive dis-trib-ute dri-ver dri-vers eco-nom-ics
-econ-o-mist elit-ist equi-vari-ant ex-quis-ite ex-tra-or-di-nary
-flow-chart for-mi-da-ble forth-right friv-o-lous ge-o-des-ic
-ge-o-det-ic geo-met-ric griev-ance griev-ous griev-ous-ly
-hexa-dec-i-mal ho-lo-no-my ho-mo-thetic ideals idio-syn-crasy
-in-fin-ite-ly in-fin-i-tes-i-mal ir-rev-o-ca-ble key-stroke
-lam-en-ta-ble light-weight mal-a-prop-ism man-u-script mar-gin-al
-meta-bol-ic me-tab-o-lism meta-lan-guage me-trop-o-lis
-met-ro-pol-i-tan mi-nut-est mol-e-cule mono-chrome mono-pole
-mo-nop-oly mono-spline mo-not-o-nous mul-ti-fac-eted mul-ti-plic-able
-non-euclid-ean non-iso-mor-phic non-smooth par-a-digm par-a-bol-ic
-pa-rab-o-loid pa-ram-e-trize para-mount pen-ta-gon phe-nom-e-non
-post-script pre-am-ble pro-ce-dur-al pro-hib-i-tive pro-hib-i-tive-ly
-pseu-do-dif-fer-en-tial pseu-do-fi-nite pseu-do-nym qua-drat-ic
-quad-ra-ture qua-si-smooth qua-si-sta-tion-ary qua-si-tri-an-gu-lar
-quin-tes-sence quin-tes-sen-tial re-arrange-ment rec-tan-gle
-ret-ri-bu-tion retro-fit retro-fit-ted right-eous right-eous-ness
-ro-bot ro-bot-ics sched-ul-ing se-mes-ter semi-def-i-nite
-semi-ho-mo-thet-ic set-up se-vere-ly side-step sov-er-eign spe-cious
-spher-oid spher-oid-al star-tling star-tling-ly sta-tis-tics
-sto-chas-tic straight-est strange-ness strat-a-gem strong-hold
-sum-ma-ble symp-to-matic syn-chro-nous topo-graph-i-cal tra-vers-a-ble
-tra-ver-sal tra-ver-sals treach-ery turn-around un-at-tached
-un-err-ing-ly white-space wide-spread wing-spread wretch-ed
-wretch-ed-ly Eng-lish Euler-ian Feb-ru-ary Gauss-ian
-Hamil-ton-ian Her-mit-ian Jan-u-ary Japan-ese Kor-te-weg
-Le-gendre Mar-kov-ian Noe-ther-ian No-vem-ber Rie-mann-ian Sep-tem-ber}
-
-
-%Added by JRF.
-\hyphenation{sin-gu-lar-i-ties sin-gu-lar-ity ho-mo-ge-neous sur-face weighted ra-tio-nal ho-mol-ogy smooth-ing smooth-ings com-po-nent com-po-nents ir-re-duc-ible affine va-ri-ety va-ri-eties pro-jec-tive pro-jec-tiv-i-za-tion com-pact-i-fied com-pact-i-fi-ca-tion al-ge-braic}
-
-
-
-
-
 \endinput
 %end of unc_dissertation.cls file
-

@@ -16,6 +16,18 @@
 \usepackage{fancyhdr}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% GLOSSARIES AND ABBREVIATIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% To update the printed glossary, you need to run:
+% - pdflatex dissertation
+% - makeglossaries dissertation
+% - pdflatex dissertation
+% On Windows, you might need to install Perl first.
+\newacronym{unc}{UNC}{The University of North Carolina at Chapel Hill}
+\makeglossaries
+
+
 %% Math Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{amsmath}
 \usepackage{amsthm}
@@ -47,4 +59,5 @@
 % \else
 % 	\usepackage[dvips]{graphicx} %%graphics and normal LaTeX
 % \fi
+
 

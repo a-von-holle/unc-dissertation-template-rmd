@@ -513,7 +513,7 @@
 \DeclareAuthorVariable*{absname}
 \absname{Abstract}
 \DeclareAuthorVariable*{tocname}
-\tocname{{\hfill Contents\hfill}  } 
+\tocname{Table of Contents} 
 \DeclareAuthorVariable*{lofname}
 \lofname{LIST OF FIGURES} 
 \DeclareAuthorVariable*{lotname}
@@ -522,7 +522,40 @@
 \loaname{LIST OF ABBREVIATIONS} 
 \DeclareAuthorVariable*{bblname}
 \bblname{REFERENCES} 
- 
+
+% Make sure that various key names are in all caps.
+\renewcommand{\partname}{PART}
+\renewcommand{\chaptername}{CHAPTER}
+\renewcommand{\appendixname}{APPENDIX}
+\renewcommand{\contentsname}{TABLE OF CONTENTS}
+\renewcommand{\listfigurename}{LIST OF FIGURES}
+\renewcommand{\listtablename}{LIST OF TABLES}
+\renewcommand{\bibname}{REFERENCES}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -542,73 +575,6 @@
 
 
 
-
-
-% Redefine what \maketitle does (changed from report). Now it makes a title page in accordance with the UNC thesis dissertation guide. It additionally creates the copyright page, the dedication page (optional), and the abstract page.
-\renewcommand\maketitle{%
-  \my@maketitlepage%
-  \ifmy@copyright%
-    \my@makecopyrightpage%
-  \fi%
-  \my@makeabstractpage%
-  \@ifauthorvariable{dedication}{\my@makededicationpage}{}%
-  \global\let\thanks\relax%
-  \global\let\maketitle\relax%
-  \global\let\@thanks\@empty%
-  \global\let\@author\@empty%
-  \global\let\@date\@empty%
-  \global\let\@title\@empty%
-  \global\let\title\relax%
-  \global\let\author\relax%
-  \global\let\date\relax%
-  \global\let\and\relax%
-}
-
-
-
-%This function actually makes the title page.
-\newcommand{\my@maketitlepage}{%
-%Be careful about extra returns (put % signs at the end of lines). They can throw off the spacing.
-  \thispagestyle{empty}%
-  %Single space it here.
-  \singlespacing%
-  \begin{center}%
-    %Add the extra space at the top.
-    \my@titlepageextra%
-    
-    %actually display the title
-    \my@displaymaintitle \par%
-    
-    \vspace{1in}
-    %display the author
-    \@author \par
-    \vspace{1in}%
-    
-    %The blurb
-    \my@dissblurb \par
-    \vspace{1in}%
-    
-    %location and year
-    \my@dissloc \par
-    \my@dissyear \par
-    \vspace{1in}%
-    
-  \end{center}
-  %back to double spacing
-  \doublespacing
-  %List the advisor, followed by the committee members.
-  %This varwidth box is as wide as the longest name inside it. The names align left inside the box, but the box itself goes as far right as it can because of the \hfill above.
-  \hspace{4.666in}
-  \begin{varwidth}{\textwidth} 
-	  \my@approvedby \par
-	  \my@advisor \par
-	  \my@readerA \par
-	  \my@readerB \par
-	  \my@readerC \par
-	  \my@readerD
-  \end{varwidth}
-  \clearpage
-}
 
 %%% ------------------------------------------------------------%%%
 %% NOTE (AVH): I changed these out of functions. for some reason the functions do not work when paired with .Rmd files ------------------------------------%%%%
@@ -658,27 +624,6 @@
 }
 
 
-%This function makes the copyright page.
-\newcommand{\my@makecopyrightpage}{
-	\begin{center}
-	  %single spacing again
-	  \singlespacing
-	  %provide the top extra space
-	  \my@crtopextra
-	  %copyright year
-	  \copyright{} \my@cryear \par
-	  
-	  %copyright name
-	  \my@crauthor \par
-	  
-	  %copyright blurb
-	  \my@crblurb \par
-	  
-    %provide the bottom extra space 	  
-	  \my@crbottomextra
-  \end{center}
-  \clearpage
-}
 
 
 
@@ -701,39 +646,6 @@
     %provide the bottom extra space 	  
 	  \my@crbottomextra
   \end{center}
-  \clearpage
-}
-
-
-
-
-
-%This function makes the abstract page.
-\newcommand{\my@makeabstractpage}{
-	\begin{center}
-	  %add extra space at top.
-	  \my@frontextra
-    %display the title
-	  \my@displaytitle{\my@absname}
-	  
-	  %put the blurb in a box because it looks weird when the title is really long. Note that the apparent stupidity of the two nested center environments is due to the fact the box also needs to be centered, not just its contents within the box. The width of the box is controlled by setting \abstractblurbwidth.
-	  \begin{minipage}{\my@abstractblurbwidth\textwidth}
-	    \begin{center}
-		    %single spacing for the blurb
-		    \singlespacing
-		    \my@abstractblurb
-	    \end{center}
-	  \end{minipage}
-	\end{center}
-    
-  %double spacing for the text of the abstract
-  \doublespacing
-  
-  %skip a line
-  \vspace{\baselineskip}
-  
-  %display the abstract
-  \my@abstract
   \clearpage
 }
 
@@ -768,27 +680,6 @@
   \clearpage
 }
 
-
-
-
-
-%This function makes the dedication page.
-\newcommand{\my@makededicationpage}{
-	\begin{center}
-	  %add extra space at top.
-	  \my@frontextra
-	  %put it in a box
-	  \begin{minipage}{\my@dedicationwidth\textwidth}
-	    \begin{center}
-		    %single spacing 
-		    \singlespacing
-		    %display the dedication
-		    \my@dedication
-	    \end{center}
-	  \end{minipage}
-	\end{center}
-	\clearpage
-}
 
 
 
@@ -942,107 +833,6 @@
   \if@openright\cleardoublepage\else\clearpage\fi
   \let\chaptername\relax}
 
-%Except, list of tables and list of figures have their own rules. So add a flag for that.
-\newif\ifmy@isalist
-\my@isalistfalse
-
-%And set the flag when you call \listoffigures, \listoftables or \listofabbreviations
-\renewcommand\listoffigures{%
-    \if@twocolumn
-      \@restonecoltrue\onecolumn
-    \else
-      \@restonecolfalse
-    \fi
-    \my@isalisttrue
-    \chapter*{\listfigurename}%
-      \@mkboth{\MakeUppercase\listfigurename}%
-              {\MakeUppercase\listfigurename}%
-    \@starttoc{lof}%
-
-    \if@restonecol\twocolumn\fi
-    \my@isalistfalse
-    }
-\renewcommand\listoftables{%
-    \if@twocolumn
-      \@restonecoltrue\onecolumn
-    \else
-      \@restonecolfalse
-    \fi
-    \my@isalisttrue
-    \chapter*{\listtablename}%
-      \@mkboth{%
-          \MakeUppercase\listtablename}%
-         {\MakeUppercase\listtablename}%
-    \@starttoc{lot}%
-    \if@restonecol\twocolumn\fi
-    \my@isalistfalse
-    }
-\providecommand\listofabbreviations{%
-    \if@twocolumn
-      \@restonecoltrue\onecolumn
-    \else
-      \@restonecolfalse
-    \fi
-    \my@isalisttrue
-    \printglossary[type=\acronymtype,title=\listabbreviationname]
-    \if@restonecol\twocolumn\fi
-    \my@isalistfalse
-    }
-    
-
-\newcommand\my@addappropriatespace{%
-		\ifmy@isalist%
-			\my@listextra%
-		\else%
-	    \ifmy@frontmatter\my@frontextra\fi%
-			\ifmy@mainmatter\my@mainextra\fi%
-			\ifmy@appendix\my@appendixextra\fi%
-			\ifmy@backmatter\my@backextra\fi%
-		\fi%
-}
-
-
-
-
-
-%--------------------------------------------CHAPTER FORMATTING---------------------------------------------
-
-
-%%% The following commands override those from report to change the display of chapter headers, so that they start 2 inches below the top of the page, and are otherwise formatted appropriately. Hopefully the settings I've provided will allow for a sufficient amount of customization to satisfy the graduate school. If you, you're going to have to wade in to some pretty deep LaTeX stuff here. Additionally we add nonnumbered chapters to the table of contents. %%%
-
-%Now we modify the display of the chapter headings to do the right things.
-\def\@makechapterhead#1{%this is for \chapter
-  \begin{center}%
-    %Add the appropriate extra space at the beginning.
-    \my@addappropriatespace%
-		%Display ``CHAPTER n'' at the top of the page. (Also letterspace it since it is all caps.)
-	  \textls*[25]{{\MakeUppercase{\@chapapp}\enspace\thechapter}}
-	   
-	  %thought we might need to skip a line, but I like the way it looks better without doing so.
-	  %\vspace{\baselineskip}  
-	  
-	  %Display the actual name of the title in Large font
-	  {\large\bfseries #1}
-	  \par
-	  
-  \end{center}
-  %\vspace*{\baselineskip}
-}
-\def\@makeschapterhead#1{%this is for \chapter*
-  \begin{center}
-    %Add the appropriate extra space at the beginning.
-    \my@addappropriatespace%
-	  %Display the title, capitalizing if allcaps is specified.
-	  \my@displaytitle{#1}
-	  \par
-  \end{center}
-  %\vspace*{\baselineskip}
-}
-
-
-
-
-
 
 
 
@@ -1068,131 +858,125 @@
 
 
 
-\renewcommand\listoffigures{%
+
+
+
+%%---------------------------- Table of Contents  + list of figures list of tables (from https://github.com/jvcasill/ua_thesis_rmd----------------------
+%% 
+%% The table of contents that the UofA wants is subtley different in a
+%% number of ways such that we need to redefine the \tableofcontents
+%% command provided by the basic LaTeX classes.  Many of the commands
+%% here are confusing, but were taken from the LaTeX book.cls class
+%% file with the following date and version stamp: 2001/04/21 v1.4e
+%%
+
+
+\renewcommand{\tableofcontents}{
+
+\addtolength{\headsep}{0.5in}		% These adjust things for the running
+\addtolength{\textheight}{-0.5in}	% headers for TOC, LOF, LOT.
+
+% This bracket begins an unnmaed environment in which we will temporarily
+% override the document's page style and margins
+{
+\renewcommand{\baselinestretch}{1}	% single spaced here
+\small\normalsize					% size switch to make the spacing behave
+
+\if@twocolumn					% \
+	\@restonecoltrue\onecolumn	%  \
+\else							% 	> Taken from book.cls
+	\@restonecolfalse			%  /
+\fi								% /
+
+% vspace added to account for the TOC, LOF, & LOT running header business.
+\chapter*{\vspace*{-0.5in}\contentsname}
+
+% \markboth{	\protect\raisebox{-0.5in}{\textbf{\emph{\contentsname} -- Continued}\hspace{1.5in}} }{
+% 			\protect\raisebox{-0.5in}{\hspace{1.5in}\textbf{\emph{\contentsname} -- Continued}} }
+\markboth{	\protect\raisebox{-0.5in}{{\emph{\contentsname} -- Continued}\hspace{1.5in}} }{
+			\protect\raisebox{-0.5in}{\hspace{1.5in}{\emph{\contentsname} -- Continued}} }
+
+
+\@starttoc{toc}%
+\if@restonecol\twocolumn\fi		% Taken from book.cls
+}
+}
+
+
+%%---------------------------- List of Figures ------------------------
+%% 
+%% The U of A List of Figures requires a running header on subsequent
+%% pages that we must define here.  We also add this section to the TOC.
+%% This was modified from the definition for listoffigures from 
+%% 2001/04/21 v1.4e book.cls.
+%%
+\renewcommand{\listoffigures}{%
+% This bracket begins an unnmaed environment in which we will temporarily
+% override the document's page style and margins
+{
+\renewcommand{\baselinestretch}{1}	% single spaced here
+\small\normalsize					% size switch to make the spacing behave
+
     \if@twocolumn
       \@restonecoltrue\onecolumn
     \else
       \@restonecolfalse
     \fi
-    \chapter*{\listfigurename}%
-      \@mkboth{\MakeUppercase\listfigurename}%
-              {\MakeUppercase\listfigurename}%
+	% vspace added to account for the TOC, LOF, & LOT running header business.
+    \chapter*{\vspace*{-0.5in}\listfigurename}%
+
+	% \markboth{\protect\raisebox{-0.5in}{\textbf{\emph{\listfigurename} -- Continued}\hspace{1.5in}} }{
+	% 		  \protect\raisebox{-0.5in}{\hspace{1.5in}\textbf{\emph{\listfigurename} -- Continued}} }
+	\markboth{\protect\raisebox{-0.5in}{{\emph{\listfigurename} -- Continued}\hspace{1.5in}} }{
+			  \protect\raisebox{-0.5in}{\hspace{1.5in}{\emph{\listfigurename} -- Continued}} }
+
+	\addcontentsline{toc}{chapter}{\listfigurename}
     \@starttoc{lof}%
     \if@restonecol\twocolumn\fi
-    }
-\renewcommand*\l@figure{\@dottedtocline{1}{1.5em}{2.3em}}
-\renewcommand\listoftables{%
+}
+}
+
+%%---------------------------- List of Tables -------------------------
+%% 
+%% The U of A List of Tables requires a running header on subsequent
+%% pages that we must define here.  We also add this section to the TOC.
+%% This was modified from the definition for listoffigures from 
+%% 2001/04/21 v1.4e book.cls.
+%%
+\renewcommand{\listoftables}{%
+% This bracket begins an unnmaed environment in which we will temporarily
+% override the document's page style and margins
+{
+\renewcommand{\baselinestretch}{1}	% single spaced here
+\small\normalsize					% size switch to make the spacing behave
+
     \if@twocolumn
       \@restonecoltrue\onecolumn
     \else
       \@restonecolfalse
     \fi
-    \chapter*{\listtablename}%
-      \@mkboth{%
-          \MakeUppercase\listtablename}%
-         {\MakeUppercase\listtablename}%
+	% vspace added to account for the TOC, LOF, & LOT running header business.
+    \chapter*{\vspace*{-0.5in}\listtablename}%
+
+	% \markboth{\protect\raisebox{-0.5in}{\textbf{\emph{\listtablename} -- Continued}\hspace{1.5in}} }{
+	% 		  \protect\raisebox{-0.5in}{\hspace{1.5in}\textbf{\emph{\listtablename} -- Continued}} }
+	\markboth{\protect\raisebox{-0.5in}{{\emph{\listtablename} -- Continued}\hspace{1.5in}} }{
+			  \protect\raisebox{-0.5in}{\hspace{1.5in}{\emph{\listtablename} -- Continued}} }
+
+	\addcontentsline{toc}{chapter}{\listtablename}
     \@starttoc{lot}%
     \if@restonecol\twocolumn\fi
-    }
-
-\renewcommand\contentsname{Contents}
-\renewcommand\listfigurename{List of Figures}
-\renewcommand\listtablename{List of Tables}
-
-
-
-
-
-%--------------------------------------------TABLE OF CONTENTS----------------------------------------------
-%%% OK, so here we're going to try to get the table of contents (and the lists of tables and figures) to display the way we like. %%%
-
-
-%Set the titles of the various lists to the correct values. 
-\renewcommand{\contentsname}{\my@tocname}
-\renewcommand{\listfigurename}{\my@lofname}
-\renewcommand{\listtablename}{\my@lotname}
-\providecommand{\listabbreviationname}{\my@loaname}
-
-% Anything that comes before the table of contents should not have an entry in the toc. To implement this requirement, I define a flag \my@isthereatoc, defaulting to false.
-
-%This flag indicates whether we've reached the table of contents or not
-\newif\ifmy@isthereatoc
-\my@isthereatocfalse
-
-%I override the \tableofcontents command to set the flag to true when the command \tableofcontents is called.
-\renewcommand\tableofcontents{%
-  \if@twocolumn
-    \@restonecoltrue\onecolumn
-  \else
-    \@restonecolfalse
-  \fi
-  \chapter*{\contentsname
-      \@mkboth{%
-         \contentsname}{\contentsname}}%
-  \@starttoc{toc}%
-  \if@restonecol\twocolumn\fi%
-  \my@isthereatoctrue%
 }
 
-%Change the display of the TOC so that chapter lines have leading.
-\renewcommand*\l@chapter[2]{%
-  \ifnum \c@tocdepth >\m@ne
-    \addpenalty{-\@highpenalty}%
-    \vskip 1.0em \@plus\p@
-    \setlength\@tempdima{1.5em}%
-    \begingroup
-      \parindent \z@ \rightskip \@pnumwidth
-      \parfillskip -\@pnumwidth
-      \leavevmode \bfseries
-      \advance\leftskip\@tempdima
-      \hskip -\leftskip
-      #1\nobreak
-      \leaders\hbox{$\m@th
-        \mkern \@dotsep mu\hbox{.}\mkern \@dotsep
-        mu$}\hfill
-      \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
-      \penalty\@highpenalty
-    \endgroup
-  \fi}
-  
-%changed \chapter* to add line to toc, if the chapter occurs after the table of contents already exists.
-\def\@schapter#1{%
-  \ifmy@isthereatoc%
-    \addcontentsline{toc}{chapter}{#1}%
-  \fi%
-	\if@twocolumn
-	 \@topnewpage[\@makeschapterhead{#1}]%
-	\else
-	 \@makeschapterhead{#1}%
-	 \@afterheading
-  \fi
+\clearpage
+\addtolength{\headsep}{-0.5in}		% Un-adjust things for the running
+\addtolength{\textheight}{0.5in}	% headers for TOC, LOF, LOT.
 }
 
-%changed \chapter to print ``Chapter 1.  Title of chapter'' to table of contents instead of just ``1. Title of Chapter''. (Similarly for Appendix A.)
-\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
-                         \refstepcounter{chapter}%
-                         \typeout{\@chapapp\space\thechapter.}%
-                         \ifmy@isthereatoc
-                           \addcontentsline{toc}{chapter}{{\@chapapp{ }\protect\numberline{\thechapter:}#1}}%
-                         \fi
-                    \else
-                      \ifmy@isthereatoc
-                        \addcontentsline{toc}{chapter}{#1}%
-                      \fi
-                    \fi
-                    \chaptermark{#1}%
-                    \addtocontents{lof}{\protect\addvspace{10\p@}}%
-                    \addtocontents{lot}{\protect\addvspace{10\p@}}%
-                    \if@twocolumn
-                      \@topnewpage[\@makechapterhead{#2}]%
-                    \else
-                      \@makechapterhead{#2}%
-                      \@afterheading
-                    \fi}
+%% ------------------- END OF UA BORROWED MATERIAL -------------------------------
 
 
 
-%% ----------------------- end of unc math dept toc ------------------------
 
 
 
@@ -1209,37 +993,6 @@
 %Additional space between the bottom of the text and the first footnote.
 \skip\footins=2\baselineskip
 
-
-
-
-
-
-%------------------------------------------------BIBLIOGRAPHY-----------------------------------------------
-
-% Set the bibliography title
-\renewcommand{\bibname}{\my@bblname}
-
-%Change spacing of bibliography entries (one line added from report.cls).
-\renewenvironment{thebibliography}[1]
-     {\chapter*{\bibname}%
-      \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
-      \singlespacing    %make bib entries single spaced
-      \list{\@biblabel{\@arabic\c@enumiv}}%
-           {\settowidth\labelwidth{\@biblabel{#1}}%
-            \leftmargin\labelwidth
-            \advance\leftmargin\labelsep
-            \@openbib@code
-            \usecounter{enumiv}%
-            \let\p@enumiv\@empty
-            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
-      \sloppy
-      \clubpenalty4000
-      \@clubpenalty \clubpenalty
-      \widowpenalty4000%
-      \sfcode`\.\@m}
-     {\def\@noitemerr
-       {\@latex@warning{Empty `thebibliography' environment}}%
-      \endlist}
 
 
 
@@ -1296,4 +1049,34 @@ Le-gendre Mar-kov-ian Noe-ther-ian No-vem-ber Rie-mann-ian Sep-tem-ber}
 
 \endinput
 %end of unc_dissertation.cls file
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
