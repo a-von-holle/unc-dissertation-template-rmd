@@ -526,41 +526,6 @@
 
 
 
-% Make sure that various key names are in all caps.
-\renewcommand{\partname}{PART}
-\renewcommand{\chaptername}{CHAPTER}
-\renewcommand{\appendixname}{APPENDIX}
-\renewcommand{\contentsname}{TABLE OF CONTENTS}
-\renewcommand{\listfigurename}{}
-\renewcommand{\listtablename}{LIST OF TABLES}
-\renewcommand{\bibname}{REFERENCES}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 %-----------------------------------------------FRONT MATTER------------------------------------------------
 %%% This is the section where all of the front matter pages get formatted and created. If you need to change how these pages are formatted, and you cant do it with the settings, this is where you edit this file. %%%
 
@@ -1103,225 +1068,131 @@
 
 
 
-
-
-
-%%---------------------------- Table of Contents  + list of figures list of tables (from https://github.com/jvcasill/ua_thesis_rmd----------------------
-%% 
-%% The table of contents that the UofA wants is subtley different in a
-%% number of ways such that we need to redefine the \tableofcontents
-%% command provided by the basic LaTeX classes.  Many of the commands
-%% here are confusing, but were taken from the LaTeX book.cls class
-%% file with the following date and version stamp: 2001/04/21 v1.4e
-%%
-
-
-\renewcommand{\tableofcontents}{
-
-%\addtolength{\headsep}{0.5in}		% These adjust things for the running
-%\addtolength{\textheight}{-0.5in}	% headers for TOC, LOF, LOT.
-
-% This bracket begins an unnmaed environment in which we will temporarily
-% override the document's page style and margins
-{
-\renewcommand{\baselinestretch}{1}	% single spaced here
-\small\normalsize					% size switch to make the spacing behave
-
-\if@twocolumn					% \
-	\@restonecoltrue\onecolumn	%  \
-\else							% 	> Taken from book.cls
-	\@restonecolfalse			%  /
-\fi								% /
-
-% vspace added to account for the TOC, LOF, & LOT running header business.
-\begin{center}
-%\chapter*{\vspace*{-0.5in}\contentsname}
-\chapter*{\vspace*{0in}\contentsname}
-\end{center}
-
-% \markboth{	\protect\raisebox{-0.5in}{\textbf{\emph{\contentsname} -- Continued}\hspace{1.5in}} }{
-% 			\protect\raisebox{-0.5in}{\hspace{1.5in}\textbf{\emph{\contentsname} -- Continued}} }
-\markboth{	\protect\raisebox{-0.5in}{{\emph{\contentsname} -- Continued}\hspace{1.5in}} }{
-			\protect\raisebox{-0.5in}{\hspace{1.5in}{\emph{\contentsname} -- Continued}} }
-
-
-\@starttoc{toc}%
-\if@restonecol\twocolumn\fi		% Taken from book.cls
-}
-}
-
-
-%%---------------------------- List of Figures ------------------------
-%% 
-%% The U of A List of Figures requires a running header on subsequent
-%% pages that we must define here.  We also add this section to the TOC.
-%% This was modified from the definition for listoffigures from 
-%% 2001/04/21 v1.4e book.cls.
-%%
-
-\renewcommand{\listoffigures}{%
-% This bracket begins an unnmaed environment in which we will temporarily
-% override the document's page style and margins
-{
-\renewcommand{\baselinestretch}{1}	% single spaced here
-\small\normalsize					% size switch to make the spacing behave
-
+\renewcommand\listoffigures{%
     \if@twocolumn
       \@restonecoltrue\onecolumn
     \else
       \@restonecolfalse
     \fi
-	% vspace added to account for the TOC, LOF, & LOT running header business.
-    %\chapter*{\vspace*{-0.5in}\listfigurename}%
-    \chapter*{\vspace*{0in}\listfigurename}%
-
-	% \markboth{\protect\raisebox{-0.5in}{\textbf{\emph{\listfigurename} -- Continued}\hspace{1.5in}} }{
-	% 		  \protect\raisebox{-0.5in}{\hspace{1.5in}\textbf{\emph{\listfigurename} -- Continued}} }
-	\markboth{\protect\raisebox{-0.5in}{{\emph{\listfigurename} -- Continued}\hspace{1.5in}} }{
-			  \protect\raisebox{-0.5in}{\hspace{1.5in}{\emph{\listfigurename} -- Continued}} }
-
-	\addcontentsline{toc}{chapter}{\listfigurename}
+    \chapter*{\listfigurename}%
+      \@mkboth{\MakeUppercase\listfigurename}%
+              {\MakeUppercase\listfigurename}%
     \@starttoc{lof}%
     \if@restonecol\twocolumn\fi
-}
-}
-
-%%---------------------------- List of Tables -------------------------
-%% 
-%% The U of A List of Tables requires a running header on subsequent
-%% pages that we must define here.  We also add this section to the TOC.
-%% This was modified from the definition for listoffigures from 
-%% 2001/04/21 v1.4e book.cls.
-%%
-\renewcommand{\listoftables}{%
-% This bracket begins an unnmaed environment in which we will temporarily
-% override the document's page style and margins
-{
-\renewcommand{\baselinestretch}{1}	% single spaced here
-\small\normalsize					% size switch to make the spacing behave
-
+    }
+\renewcommand*\l@figure{\@dottedtocline{1}{1.5em}{2.3em}}
+\renewcommand\listoftables{%
     \if@twocolumn
       \@restonecoltrue\onecolumn
     \else
       \@restonecolfalse
     \fi
-	% vspace added to account for the TOC, LOF, & LOT running header business.
-    %\chapter*{\vspace*{-0.5in}\listtablename}%
-    \chapter*{\vspace*{0in}\listtablename}%
-
-	% \markboth{\protect\raisebox{-0.5in}{\textbf{\emph{\listtablename} -- Continued}\hspace{1.5in}} }{
-	% 		  \protect\raisebox{-0.5in}{\hspace{1.5in}\textbf{\emph{\listtablename} -- Continued}} }
-	\markboth{\protect\raisebox{-0.5in}{{\emph{\listtablename} -- Continued}\hspace{1.5in}} }{
-			  \protect\raisebox{-0.5in}{\hspace{1.5in}{\emph{\listtablename} -- Continued}} }
-
-	\addcontentsline{toc}{chapter}{\listtablename}
+    \chapter*{\listtablename}%
+      \@mkboth{%
+          \MakeUppercase\listtablename}%
+         {\MakeUppercase\listtablename}%
     \@starttoc{lot}%
     \if@restonecol\twocolumn\fi
-}
+    }
 
-\clearpage
-\addtolength{\headsep}{-0.5in}		% Un-adjust things for the running
-\addtolength{\textheight}{0.5in}	% headers for TOC, LOF, LOT.
-}
+\renewcommand\contentsname{Contents}
+\renewcommand\listfigurename{List of Figures}
+\renewcommand\listtablename{List of Tables}
 
-%% ------------------- END OF UA BORROWED MATERIAL -------------------------------
+
 
 
 
 %--------------------------------------------TABLE OF CONTENTS----------------------------------------------
 %%% OK, so here we're going to try to get the table of contents (and the lists of tables and figures) to display the way we like. %%%
 
-% 
-% %Set the titles of the various lists to the correct values. 
-% \renewcommand{\contentsname}{\my@tocname}
-% \renewcommand{\listfigurename}{\my@lofname}
-% \renewcommand{\listtablename}{\my@lotname}
-% \providecommand{\listabbreviationname}{\my@loaname}
-% 
-% % Anything that comes before the table of contents should not have an entry in the toc. To implement this requirement, I define a flag \my@isthereatoc, defaulting to false.
-% 
-% %This flag indicates whether we've reached the table of contents or not
-% \newif\ifmy@isthereatoc
-% \my@isthereatocfalse
-% 
-% %I override the \tableofcontents command to set the flag to true when the command \tableofcontents is called.
-% \renewcommand\tableofcontents{%
-%   \if@twocolumn
-%     \@restonecoltrue\onecolumn
-%   \else
-%     \@restonecolfalse
-%   \fi
-%   \chapter*{\contentsname
-%       \@mkboth{%
-%          \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
-%   \@starttoc{toc}%
-%   \if@restonecol\twocolumn\fi%
-%   \my@isthereatoctrue%
-% }
-% 
-% %Change the display of the TOC so that chapter lines have leading.
-% \renewcommand*\l@chapter[2]{%
-%   \ifnum \c@tocdepth >\m@ne
-%     \addpenalty{-\@highpenalty}%
-%     \vskip 1.0em \@plus\p@
-%     \setlength\@tempdima{1.5em}%
-%     \begingroup
-%       \parindent \z@ \rightskip \@pnumwidth
-%       \parfillskip -\@pnumwidth
-%       \leavevmode \bfseries
-%       \advance\leftskip\@tempdima
-%       \hskip -\leftskip
-%       #1\nobreak
-%       \leaders\hbox{$\m@th
-%         \mkern \@dotsep mu\hbox{.}\mkern \@dotsep
-%         mu$}\hfill
-%       \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
-%       \penalty\@highpenalty
-%     \endgroup
-%   \fi}
-% 
-% %changed \chapter* to add line to toc, if the chapter occurs after the table of contents already exists.
-% \def\@schapter#1{%
-%   \ifmy@isthereatoc%
-%     \addcontentsline{toc}{chapter}{#1}%
-%   \fi%
-% 	\if@twocolumn
-% 	 \@topnewpage[\@makeschapterhead{#1}]%
-% 	\else
-% 	 \@makeschapterhead{#1}%
-% 	 \@afterheading
-%   \fi
-% }
-% 
-% %changed \chapter to print ``Chapter 1.  Title of chapter'' to table of contents instead of just ``1. Title of Chapter''. (Similarly for Appendix A.)
-% \def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
-%                          \refstepcounter{chapter}%
-%                          \typeout{\@chapapp\space\thechapter.}%
-%                          \ifmy@isthereatoc
-%                            \addcontentsline{toc}{chapter}{\MakeUppercase{\@chapapp{ }\protect\numberline{\thechapter:}#1}}%
-%                          \fi
-%                     \else
-%                       \ifmy@isthereatoc
-%                         \addcontentsline{toc}{chapter}{#1}%
-%                       \fi
-%                     \fi
-%                     \chaptermark{#1}%
-%                     \addtocontents{lof}{\protect\addvspace{10\p@}}%
-%                     \addtocontents{lot}{\protect\addvspace{10\p@}}%
-%                     \if@twocolumn
-%                       \@topnewpage[\@makechapterhead{#2}]%
-%                     \else
-%                       \@makechapterhead{#2}%
-%                       \@afterheading
-%                     \fi}
+
+%Set the titles of the various lists to the correct values. 
+\renewcommand{\contentsname}{\my@tocname}
+\renewcommand{\listfigurename}{\my@lofname}
+\renewcommand{\listtablename}{\my@lotname}
+\providecommand{\listabbreviationname}{\my@loaname}
+
+% Anything that comes before the table of contents should not have an entry in the toc. To implement this requirement, I define a flag \my@isthereatoc, defaulting to false.
+
+%This flag indicates whether we've reached the table of contents or not
+\newif\ifmy@isthereatoc
+\my@isthereatocfalse
+
+%I override the \tableofcontents command to set the flag to true when the command \tableofcontents is called.
+\renewcommand\tableofcontents{%
+  \if@twocolumn
+    \@restonecoltrue\onecolumn
+  \else
+    \@restonecolfalse
+  \fi
+  \chapter*{\contentsname
+      \@mkboth{%
+         \contentsname}{\contentsname}}%
+  \@starttoc{toc}%
+  \if@restonecol\twocolumn\fi%
+  \my@isthereatoctrue%
+}
+
+%Change the display of the TOC so that chapter lines have leading.
+\renewcommand*\l@chapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip 1.0em \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak
+      \leaders\hbox{$\m@th
+        \mkern \@dotsep mu\hbox{.}\mkern \@dotsep
+        mu$}\hfill
+      \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \fi}
+  
+%changed \chapter* to add line to toc, if the chapter occurs after the table of contents already exists.
+\def\@schapter#1{%
+  \ifmy@isthereatoc%
+    \addcontentsline{toc}{chapter}{#1}%
+  \fi%
+	\if@twocolumn
+	 \@topnewpage[\@makeschapterhead{#1}]%
+	\else
+	 \@makeschapterhead{#1}%
+	 \@afterheading
+  \fi
+}
+
+%changed \chapter to print ``Chapter 1.  Title of chapter'' to table of contents instead of just ``1. Title of Chapter''. (Similarly for Appendix A.)
+\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
+                         \refstepcounter{chapter}%
+                         \typeout{\@chapapp\space\thechapter.}%
+                         \ifmy@isthereatoc
+                           \addcontentsline{toc}{chapter}{{\@chapapp{ }\protect\numberline{\thechapter:}#1}}%
+                         \fi
+                    \else
+                      \ifmy@isthereatoc
+                        \addcontentsline{toc}{chapter}{#1}%
+                      \fi
+                    \fi
+                    \chaptermark{#1}%
+                    \addtocontents{lof}{\protect\addvspace{10\p@}}%
+                    \addtocontents{lot}{\protect\addvspace{10\p@}}%
+                    \if@twocolumn
+                      \@topnewpage[\@makechapterhead{#2}]%
+                    \else
+                      \@makechapterhead{#2}%
+                      \@afterheading
+                    \fi}
 
 
 
-
-
-
-
-
+%% ----------------------- end of unc math dept toc ------------------------
 
 
 
@@ -1425,34 +1296,4 @@ Le-gendre Mar-kov-ian Noe-ther-ian No-vem-ber Rie-mann-ian Sep-tem-ber}
 
 \endinput
 %end of unc_dissertation.cls file
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

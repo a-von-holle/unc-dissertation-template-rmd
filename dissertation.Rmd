@@ -50,4 +50,13 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 \setlength{\leftskip}{0.2in}
 \setlength{\parskip}{8pt}
 
-\increferences{sections/references}
+\backmatter
+
+\chapter*{References}
+\bibliography{dissertation}
+\addtocontents{toc}{\protect\vspace*{\baselineskip}}
+<!-- \addcontentsline{toc}{chapter}{Bibliography} -->
+
+
+
+<!-- \increferences{sections/references} -->
