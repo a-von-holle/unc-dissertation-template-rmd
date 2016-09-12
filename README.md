@@ -10,7 +10,8 @@ This repository contains files to create a formatted dissertation according to [
 3. Open [dissertation.Rmd](dissertation.Rmd) in RStudio.
     * Hit the 'Knit PDF' button in the window containing the dissertation.Rmd code.
     * You should get a [formatted PDF](dissertation.pdf) with the content in this template.
-4. Modify the files to fit your content. Try not to modify the .cls file unless you are LaTex literate. Even adding one extra package could throw the whole formatting scheme off.
+4. Modify the files to fit your content. 
+   * Note: Try not to modify the .cls file unless you are LaTex literate. Even adding one extra package could throw the whole formatting scheme off.
 
 
 
