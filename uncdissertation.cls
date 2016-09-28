@@ -264,6 +264,7 @@
 
 
 
+
 %Here we configure some utility functions to provide the extra spaces. (This is necessary to ensure that it works correctly when the extra space is 0pt. It also helps clean up some of the conditionals elsewhere).
 
 %If it's 0pt, we don't want to have a vspace command at all. The * is necessary since it could appear at the top of a page. NOTE: The \hbox{}\kern-\topskip part should make it start at the actual top of the page (without inserting additional space). (See also http://tex.stackexchange.com/questions/7676/why-does-vspace0pt-add-vertical-space).
@@ -348,7 +349,8 @@
 \RequirePackage[protrusion,expansion,tracking,kerning,letterspace=25]{microtype}
 
 % This package allows for glossaries
-\RequirePackage[acronym]{glossaries}
+%\RequirePackage[acronym]{glossaries}
+%\RequirePackage[nomain,acronym,xindy,toc]{glossaries}
 
 %---------------------------------------------COMMANDS PROVIDED---------------------------------------------
 
@@ -542,73 +544,6 @@
 
 
 
-
-
-% Redefine what \maketitle does (changed from report). Now it makes a title page in accordance with the UNC thesis dissertation guide. It additionally creates the copyright page, the dedication page (optional), and the abstract page.
-\renewcommand\maketitle{%
-  \my@maketitlepage%
-  \ifmy@copyright%
-    \my@makecopyrightpage%
-  \fi%
-  \my@makeabstractpage%
-  \@ifauthorvariable{dedication}{\my@makededicationpage}{}%
-  \global\let\thanks\relax%
-  \global\let\maketitle\relax%
-  \global\let\@thanks\@empty%
-  \global\let\@author\@empty%
-  \global\let\@date\@empty%
-  \global\let\@title\@empty%
-  \global\let\title\relax%
-  \global\let\author\relax%
-  \global\let\date\relax%
-  \global\let\and\relax%
-}
-
-
-
-%This function actually makes the title page.
-\newcommand{\my@maketitlepage}{%
-%Be careful about extra returns (put % signs at the end of lines). They can throw off the spacing.
-  \thispagestyle{empty}%
-  %Single space it here.
-  \singlespacing%
-  \begin{center}%
-    %Add the extra space at the top.
-    \my@titlepageextra%
-    
-    %actually display the title
-    \my@displaymaintitle \par%
-    
-    \vspace{1in}
-    %display the author
-    \@author \par
-    \vspace{1in}%
-    
-    %The blurb
-    \my@dissblurb \par
-    \vspace{1in}%
-    
-    %location and year
-    \my@dissloc \par
-    \my@dissyear \par
-    \vspace{1in}%
-    
-  \end{center}
-  %back to double spacing
-  \doublespacing
-  %List the advisor, followed by the committee members.
-  %This varwidth box is as wide as the longest name inside it. The names align left inside the box, but the box itself goes as far right as it can because of the \hfill above.
-  \hspace{4.666in}
-  \begin{varwidth}{\textwidth} 
-	  \my@approvedby \par
-	  \my@advisor \par
-	  \my@readerA \par
-	  \my@readerB \par
-	  \my@readerC \par
-	  \my@readerD
-  \end{varwidth}
-  \clearpage
-}
 
 %%% ------------------------------------------------------------%%%
 %% NOTE (AVH): I changed these out of functions. for some reason the functions do not work when paired with .Rmd files ------------------------------------%%%%
@@ -977,14 +912,26 @@
     \if@restonecol\twocolumn\fi
     \my@isalistfalse
     }
-\providecommand\listofabbreviations{%
+% \providecommand\listofabbreviations{%
+%     \if@twocolumn
+%       \@restonecoltrue\onecolumn
+%     \else
+%       \@restonecolfalse
+%     \fi
+%     \my@isalisttrue
+%     \printglossary[type=\acronymtype,title=\listabbreviationname]
+%     \if@restonecol\twocolumn\fi
+%     \my@isalistfalse
+%     }
+  \providecommand\listofabbreviations{%
     \if@twocolumn
       \@restonecoltrue\onecolumn
     \else
       \@restonecolfalse
     \fi
     \my@isalisttrue
-    \printglossary[type=\acronymtype,title=\listabbreviationname]
+    \printterms[database=acronym]
+    %\printglossary[type=\acronymtype,title=\listabbreviationname]
     \if@restonecol\twocolumn\fi
     \my@isalistfalse
     }
@@ -1064,41 +1011,6 @@
                                      {-1em}%
                                      {\normalfont\normalsize\bfseries}}
 %Of course, now subsubsections are formatted the same as paragraphs. But oh well.
-
-
-
-
-\renewcommand\listoffigures{%
-    \if@twocolumn
-      \@restonecoltrue\onecolumn
-    \else
-      \@restonecolfalse
-    \fi
-    \chapter*{\listfigurename}%
-      \@mkboth{\MakeUppercase\listfigurename}%
-              {\MakeUppercase\listfigurename}%
-    \@starttoc{lof}%
-    \if@restonecol\twocolumn\fi
-    }
-\renewcommand*\l@figure{\@dottedtocline{1}{1.5em}{2.3em}}
-\renewcommand\listoftables{%
-    \if@twocolumn
-      \@restonecoltrue\onecolumn
-    \else
-      \@restonecolfalse
-    \fi
-    \chapter*{\listtablename}%
-      \@mkboth{%
-          \MakeUppercase\listtablename}%
-         {\MakeUppercase\listtablename}%
-    \@starttoc{lot}%
-    \if@restonecol\twocolumn\fi
-    }
-
-\renewcommand\contentsname{Contents}
-\renewcommand\listfigurename{List of Figures}
-\renewcommand\listtablename{List of Tables}
-
 
 
 
@@ -1289,8 +1201,6 @@ Le-gendre Mar-kov-ian Noe-ther-ian No-vem-ber Rie-mann-ian Sep-tem-ber}
 
 %Added by JRF.
 \hyphenation{sin-gu-lar-i-ties sin-gu-lar-ity ho-mo-ge-neous sur-face weighted ra-tio-nal ho-mol-ogy smooth-ing smooth-ings com-po-nent com-po-nents ir-re-duc-ible affine va-ri-ety va-ri-eties pro-jec-tive pro-jec-tiv-i-za-tion com-pact-i-fied com-pact-i-fi-ca-tion al-ge-braic}
-
-
 
 
 

@@ -1,0 +1,15 @@
+
+\usepackage{datagidx}% NOTE: this will not work unless you disable glossaries package
+
+
+\newgidx{glossary}{Glossary}
+\newgidx{acronym}{List of Abbreviations}
+
+
+\DTLgidxSetDefaultDB{acronym}
+\newacro{TC}{Total Cholesterol}
+\newacro{HDL-C}{High Density Lipoprotein Cholesterol}
+\newacro{LDL-C}{Low Density Lipoprotein Cholesterol}
+\newacro{TG}{Triglycerides}
+\newacro{GWAS}{Genome Wide Association Studies}
+%no need to call makeglossaries.

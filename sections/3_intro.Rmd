@@ -14,6 +14,8 @@ This is a piecemeal rendition of the University of Arizona thesis class (`uathes
 
 The basic structure of the thesis package has been cleaned up significantly. There are now two folders inside the main directory: **includes** and **sections**. The `includes` folder contains most of the under the hood files that you will generally edit one time to set up the project metadata (i.e. the title, committee members, etc.), but also includes .bib files and figures. The `sections` folder is where the chapters of the dissertation live. Each chapter is its own .Rmd file. You will write you chapters in these files and compile the master document. This folder is home to the other less important (but required) sections (i.e. acknowledgments, dedications, abstracts and appendices).^[All of these files are imported into the final pdf in the `master.Rmd` file via `knitr` or specific commands written for the `uathesis` class.] The underlying engine is \LaTeX. To generate the dissertation pdf, compile the `master.Rmd` file in your favorite text editor.
 
+Here is the first cite of an acronym: \acr{TG}. Here is another acronym: \acr{HDL-C}. If you cite the acronym again, \acr{TG}, it will abbreviate properly.
+
 
 # Sections\label{sections}
 

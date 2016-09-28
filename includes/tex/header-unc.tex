@@ -6,7 +6,7 @@
 
 % List of acronyms
 \usepackage{longtable}
-\usepackage[acronym]{glossaries}
+%\usepackage[acronym]{glossaries} % note: when using datagidx package need to suppress glossaries package
 
 \usepackage[english]{babel}
 %\usepackage{tocloft}
@@ -24,8 +24,14 @@
 % - makeglossaries dissertation
 % - pdflatex dissertation
 % On Windows, you might need to install Perl first.
-\newacronym{unc}{UNC}{The University of North Carolina at Chapel Hill}
-\makeglossaries
+%\newacronym{unc}{UNC}{The University of North Carolina at Chapel Hill}
+%\makeglossaries
+
+
+% NOTE: the glossaries package in LaTex does not work when using markdown. Trying another approach from "Using LaTex to Write a PhD Thesis" by Nicola L.C. Talbot
+
+
+\input{includes/tex/glossaryfile.tex}
 
 
 %% Math Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
